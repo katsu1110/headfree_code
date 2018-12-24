@@ -15,7 +15,7 @@ if nargin < 3; saveoption = 0; end
 
 % path
 addpath(genpath('Z:\Katsuhisa\code\integrated\matlab_usefulfunc'))
-addpath(genpath('Z:\Katsuhisa\headfree_project\code'))
+addpath(genpath('Z:\Katsuhisa\headfree_project\headfree_code'))
 figpath = 'Z:\Katsuhisa\headfree_project\figures\';
 
 %%
