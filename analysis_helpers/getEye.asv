@@ -186,7 +186,7 @@ for i = 1:len_alltr
         else
             eyedata.reward(eyec) = ex.Trials(i).Reward;
             eyedata.trstopidx(eyec) = veclensofar + length(eyex);    
-            eyedata.stmstopidx(eyec) = veclensofar + enpos;
+            eyedata.stmstopidx(eyec) = veclensofar +  enpos;
         end
     end
     

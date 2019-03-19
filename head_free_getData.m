@@ -294,7 +294,7 @@ for t = 1:length(lists)
                 % store eye-data for further analysis such as 'U'n'Eye'
                 % (https://github.com/berenslab/uneye#content)
                 eyemat = [eyex; eyey; ps; ceyes; trs];
-                save([mypath '/Katsuhisa/headfree_project/dataset/eyes/' lists{t}(l).name '_eyemat.mat'], 'eyemat', '-v7.3')
+                save([mypath '/Katsuhisa/headfree_project/dataset/eyes/' animal '_' lists{t}(l).name '_eyemat.mat'], 'eyemat', '-v7.3')
                 clearvars eyemat
             else
                 continue
