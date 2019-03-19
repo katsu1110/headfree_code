@@ -23,7 +23,7 @@ for i = 1:length(eyedata.stmstartidx)
         pmat(r, 3) = avrew(i);
         pmat(r, 4) = eyedata.reward(i);
         pstc = eyedata.filtered_p(eyedata.stmstartidx(i):eyedata.stmstopidx(i));
-        pmat(r, 5:end) = pstc(1:ns);
+        pmat(r, 5:end) = pstc(end-ns+1:end);
         r = r + 1;
     end
 end

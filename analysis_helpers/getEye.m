@@ -44,6 +44,7 @@ elseif ~isfield(ex.eyeCal,'RXGain') && isfield(ex.eyeCal,'LXGain')
 else
     again = [ex.eyeCal.XGain; ex.eyeCal.YGain];
 end
+
 % adjust spurious gains 
 if again(1) > 300 || isnan(again(1))
     again(1) = 300;
@@ -145,15 +146,15 @@ for i = 1:len_alltr
     
     % eye data (monocular)
     nonan = ~isnan(ex.Trials(i).Eye.v(1,:));
-%     try
-%         eyex = mean(ex.Trials(i).Eye.v([1 4], nonan),1);
-%         eyey = mean(ex.Trials(i).Eye.v([2 5], nonan),1);
-%         eyep = mean(ex.Trials(i).Eye.v([3 6], nonan),1);
-%     catch
+    try
+        eyex = mean(ex.Trials(i).Eye.v([1 4], nonan),1);
+        eyey = mean(ex.Trials(i).Eye.v([2 5], nonan),1);
+        eyep = mean(ex.Trials(i).Eye.v([3 6], nonan),1);
+    catch
         eyex = ex.Trials(i).Eye.v(1, nonan);
         eyey = ex.Trials(i).Eye.v(2, nonan);
         eyep = ex.Trials(i).Eye.v(3, nonan);
-%     end
+    end
     eyex = (eyex - pos0(1))*again(1)*dpp;
     eyey = (eyey - pos0(2))*again(2)*dpp;
 %     % use fixed gain

@@ -9,16 +9,16 @@ eyepath = 'Z:/Katsuhisa/headfree_project/dataset/eyes_dis_csv';
 addpath(genpath('Z:/Katsuhisa/code/integrated/cbrewer'))
 
 % sessiondate = '2016.01.07';
-sessiondate = '2016.01.02';
+sessiondate = '2016.01.06';
 
 eyex = csvread([eyepath '/' sessiondate '_x.csv']);
 eyey = csvread([eyepath '/' sessiondate '_y.csv']);
 pred = csvread([datapath '/' sessiondate '_pred.csv']);
 
-% j = 40;
-j = 15;
+j = 605;
+% j = 15;
 saccc = 0;
-while saccc < 3
+while saccc < 2
     j = j + 1;
    [start_idx, end_idx] = consecutive_ones(pred(j,:));
     saccc = length(start_idx);

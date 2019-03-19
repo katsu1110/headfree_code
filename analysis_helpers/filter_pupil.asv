@@ -56,7 +56,6 @@ switch method
         end
         me = HiPaFi(me);
         c = 1;
-        psvec = [];
         for i = 1:length(eyedata.stmstartidx)
             if abs(eyedata.reward(i)) > 0
                 % high pass filter
@@ -64,15 +63,8 @@ switch method
                
                % low pass filter
                ps = LoPaFi(ps, 1);
-               eyedata.filtered_p(eyedata.stmstartidx(i):eyedata.stmstopidx(i)) = ps;
-               psvec = [psvec, ps];
+               eyedata.filter_p
                c = c + 1;
             end
-        end
-        psme = nanmean(psvec); pssd = nanstd(psvec);
-        % z-scoring
-        for i = 1:length(eyedata.stmstartidx)
-            eyedata.filtered_p(eyedata.stmstartidx(i):eyedata.stmstopidx(i)) ...
-                = (eyedata.filtered_p(eyedata.stmstartidx(i):eyedata.stmstopidx(i)) - psme)/pssd;
         end
 end

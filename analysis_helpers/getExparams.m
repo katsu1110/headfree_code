@@ -13,7 +13,11 @@ elseif isfield(ex,'Header')
     elseif isfield(ex.Header,'Headers')
         filename = ex.Header.fileName;
     else
-     filename = ex.Header.fileName;
+        try
+            filename = ex.Header.fileName;
+        catch
+            filename = ex.fileName;
+        end
     end
 else
     filename = ex.fileName;

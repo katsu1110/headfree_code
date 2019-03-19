@@ -61,8 +61,8 @@ switch lower(animal)
         lists{1} = meke_list(datapath{1}, startname, stopname); 
         
         % discrimination task
-        datapath{2} = [mypath '/data/kaki/disparity discrimination task/'];
-        startname = '2018.10.03';
+        datapath{2} = [mypath 'data/kaki/disparity discrimination task/'];
+        startname = '2015.12.16';
         stopname = '2018.10.12';
         lists{2} = meke_list(datapath{2}, startname, stopname);
     case 'mango_fixed' % head-fixed
@@ -70,31 +70,20 @@ switch lower(animal)
         lists = cell(1,1);
 
         % fixation task
-        datapath{1} = [mypath '/data/mango/FixTraining_DxTraining/'];
-        startname = '2014.11.17';
-        stopname = '2014.11.24';
+        datapath{1} = [mypath '/Katsuhisa/headfree_project/fixation task/'];
+        startname = '2016.02.01';
+        stopname = '2016.06.04';
         lists{1} = meke_list(datapath{1}, startname, stopname);  
         
-        % discrimination task
-        datapath{2} = [mypath '/data/mango/dx training/'];
-        startname = '2017.11.01';
-        stopname = '2017.11.10';
-        lists{2} = meke_list(datapath{2}, startname, stopname);
    case 'kiwi_fixed' % head-fixed
         datapath = cell(1,1);
         lists = cell(1,1);
 
         % fixation task
-        datapath{1} = [mypath '/Katsuhisa/headfree_project/kiwi_fixation/'];
-        startname = '2016.05.10';
-        stopname = '2016.05.20';
+        datapath{1} = [mypath '/Katsuhisa/headfree_project/fixation task/'];
+        startname = '2016.02.01';
+        stopname = '2016.06.04';
         lists{1} = meke_list(datapath{1}, startname, stopname);  
-        
-        % discrimination task
-        datapath{2} = [mypath '/data/kiwi/dx_training/'];
-        startname = '2015.10.12';
-        stopname = '2015.10.23';
-        lists{2} = meke_list(datapath{2}, startname, stopname);
 end
         
 

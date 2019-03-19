@@ -349,8 +349,8 @@ end
 
 %%
 % Fig. 3: fixation precision
-% a: fixation presion with example 2d hist (uncorrected)
-% b: fixation presion with example 2d hist (corrected)
+% a: variance
+% b: fixation presion
 if strcmp(fignum, 'all') || fignum==4
    % figure format convention
     [figPars, axPars] = setPlotPars;
@@ -716,7 +716,7 @@ if strcmp(fignum, 'all') || fignum==7
 %     end
 
     % a
-    listses = {'2016.01.07_48', '2016.01.02_19'};
+    listses = {'2016.01.07_48', '2016.01.06_606'};
     for k = 1:length(listses)
         place = [xbegin ybegin+figspace_y*(2-k) gr*sq sq/2];
         ax_new = axes(axPars, 'position', place);

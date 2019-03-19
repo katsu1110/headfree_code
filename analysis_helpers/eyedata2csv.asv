@@ -19,18 +19,17 @@ parfor i = 1:lenl
         e = load([eyepath '/' listings(i).name], 'eyemat');
         [x, y] = reshape_eyemat(e.eyemat);
         
-        % date name
-        idx = strfind(listings(i).name, '_');
-        datename = listings(i).name(1:idx-1);
-
-        % to csv
-        dlmwrite([savepath '/' datename '_x.csv'], ...
-            x, 'delimiter', ',', 'precision', 9)
-        dlmwrite([savepath '/' datename '_y.csv'], ...
-            y, 'delimiter', ',', 'precision', 9)
-        disp([listings(i).name ' saved as csv!'])
+    % date name
+    idx = strfind(listings(i).name, '_');
+    datename = listings(i).name(1:idx-1);
+    
+    % to csv
+    dlmwrite([savepath '/' datename '_x.csv'], ...
+        x, 'delimiter', ',', 'precision', 9)
+    dlmwrite([savepath '/' datename '_y.csv'], ...
+        y, 'delimiter', ',', 'precision', 9)
+    disp([listings(i).name ' saved as csv!'])
     catch
-        disp([listings(i).name ' ERR'])
         continue
     end
 end

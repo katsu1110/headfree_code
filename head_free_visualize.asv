@@ -47,9 +47,6 @@ if isfield(data.session, 'pm')
 else
     tasktype = '_fix';
 end
-if length(data.session) > 50
-    tasktype = [tasktype '_headfix'];
-end
 
 % blue and red
 red = [0.7922 0 0.1255];
@@ -229,14 +226,14 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
         % 2D hist of eye positions
         figure;
         nr = floor(sqrt(lenses));
-        nc = ceil((lenses)/nr);
+        nc = ceil(lenses/nr);
         smoothr = 3;
+        m_all = zeros(1000, 1000);
         for i = 1:lenses
             subplot(nr, nc, i)
-            x = data.session(i).fixPrecision{c}.edge_x;
-            y = data.session(i).fixPrecision{c}.edge_y;
             m = smooth2a(data.session(i).fixPrecision{c}.Prob', smoothr, smoothr);
-            imagesc(x, y, m)
+            m_all = m_all + imresize(m, [1000, 1000]);
+            imagesc(data.session(i).fixPrecision{c}.edge_x, data.session(i).fixPrecision{c}.edge_y, m)
             colormap(cmap)
 %             caxis([0 0.01])
     %         xlim(max(data.session(i).params.fixwin(1,:))*[-1 1])
@@ -245,6 +242,8 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
             title(num2str(i))
             set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
         end
+        % average of all
+        
         set(gcf, 'Name', ['2D hist of eye positions: ' fignames{c}], 'NumberTitle', 'off')
         
         % autosave figures
