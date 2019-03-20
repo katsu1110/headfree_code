@@ -33,6 +33,15 @@ addpath(genpath([mypath '/Katsuhisa/code/integrated/matlab_usefulfunc']))
 
 % data =======================================
 switch lower(animal)
+    case 'test' % test case
+        datapath = cell(1,2);
+        lists = cell(1,2);
+
+        % fixation task
+        datapath{1} = [mypath '/Katsuhisa/headfree_project/fixation task/'];
+        startname = '2015.10.12';
+        stopname = '2015.10.13';
+        lists{1} = meke_list(datapath{1}, startname, stopname);        
     case 'kaki_free' % head-free
         datapath = cell(1,2);
         lists = cell(1,2);

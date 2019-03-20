@@ -21,7 +21,7 @@ parfor i = 1:lenl
         
         % date name
         idx = strfind(listings(i).name, '_');
-        datename = listings(i).name(1:idx-1);
+        datename = listings(i).name(1:idx(end)-1);
 
         % to csv
         dlmwrite([savepath '/' datename '_x.csv'], ...

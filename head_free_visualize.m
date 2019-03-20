@@ -79,22 +79,24 @@ end
 % animal's behaviors (working hours, P(fixation breaks), suvival function,
 % its fitted parameter)
 if strcmp(focus, 'all') || strcmp(focus, 'behaviors')
-    params = nan(4, lenses);
+        % paranames = {'working hours (h)', 'proportion of trials with fixation breaks (%)', 'Weibull \k'};
+%     paranames = {'working duration (min)', 'proportion of trials with fixation breaks (%)', ...
+%         'median of weibull dist.', 'cumulative hazard rate'};
+    paranames = {'working duration (min)', 'proportion of trials with fixation breaks (%)', ...
+        'median of fixation duration'};
+    params = nan(length(paranames), lenses);
     for i = 1:lenses
         params(1,i) = data.session(i).eyedata.eyeveclen/(500*60);
         params(2,i) = 100*sum(data.session(i).eyedata.reward==0)/...
             length(data.session(i).eyedata.reward);
         % median
-        params(3,i) = data.session(i).survival.fitparams(1)*log(2)^(1/data.session(i).survival.fitparams(2));
+        params(3, i) = data.session(i).raw_median;
+%         params(3,i) = data.session(i).survival.fitparams(1)*log(2)^(1/data.session(i).survival.fitparams(2));
 %         params(3,i) = (nanmean(data.session(i).params.fixdur/2)/data.session(i).survival.fitparams(1))...
 %             ^data.session(i).survival.fitparams(1);
-        params(4,i) = (nanmean(data.session(i).params.fixdur)/data.session(i).survival.fitparams(1))...
-            ^data.session(i).survival.fitparams(1);
+%         params(4,i) = (nanmean(data.session(i).params.fixdur)/data.session(i).survival.fitparams(1))...
+%             ^data.session(i).survival.fitparams(1);
     end
-
-    % paranames = {'working hours (h)', 'proportion of trials with fixation breaks (%)', 'Weibull \k'};
-    paranames = {'working duration (min)', 'proportion of trials with fixation breaks (%)', ...
-        'median of weibull dist.', 'cumulative hazard rate'};
     session_plot(params, [], paranames, 'animal behaviors')
     
     % autosave figures
@@ -102,29 +104,29 @@ if strcmp(focus, 'all') || strcmp(focus, 'behaviors')
         savefig(gcf, [figpath 'Figure2_ExperimentalParams\raw_figs\ses_behav' tasktype '.fig'])
     end
     
-    % survival functions with a Weibull fit
-    figure;
-    nr = floor(sqrt(lenses));
-    nc = ceil(lenses/nr);
-    for i = 1:lenses
-        subplot(nr, nc, i)
-        stairs(data.session(i).survival.edges, data.session(i).survival.survival, '-k')
-        hold on;
-        fitx = linspace(data.session(i).survival.edges(1), ...
-            data.session(i).survival.edges(end), 100);
-        plot(fitx, 1 - cdf('wbl', fitx, ...
-            data.session(i).survival.fitparams(1), data.session(i).survival.fitparams(2)), '-r')
-        xlim([0 max(data.session(i).params.fixdur)])
-        ylim([0 1])
-        title(num2str(i))
-        set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
-    end
-    set(gcf, 'Name', 'survival functions', 'NumberTitle', 'off')
-    
-    % autosave figures
-    if saveoption==1
-        savefig(gcf, [figpath 'Figure2_ExperimentalParams\raw_figs\survival_all' tasktype '.fig'])
-    end
+%     % survival functions with a Weibull fit
+%     figure;
+%     nr = floor(sqrt(lenses));
+%     nc = ceil(lenses/nr);
+%     for i = 1:lenses
+%         subplot(nr, nc, i)
+%         stairs(data.session(i).survival.edges, data.session(i).survival.survival, '-k')
+%         hold on;
+%         fitx = linspace(data.session(i).survival.edges(1), ...
+%             data.session(i).survival.edges(end), 100);
+%         plot(fitx, 1 - cdf('wbl', fitx, ...
+%             data.session(i).survival.fitparams(1), data.session(i).survival.fitparams(2)), '-r')
+%         xlim([0 max(data.session(i).params.fixdur)])
+%         ylim([0 1])
+%         title(num2str(i))
+%         set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
+%     end
+%     set(gcf, 'Name', 'survival functions', 'NumberTitle', 'off')
+%     
+%     % autosave figures
+%     if saveoption==1
+%         savefig(gcf, [figpath 'Figure2_ExperimentalParams\raw_figs\survival_all' tasktype '.fig'])
+%     end
 end
 
 % %% 
