@@ -744,10 +744,9 @@ if strcmp(fignum, 'all') || fignum==7
     
     % b
     animals = {'kaki_free', 'kaki_fixed', 'mango_fixed', 'kiwi_fixed'};
-    anames = {'head-free A', 'head-fixed A', 'head-fixed M', 'head-fixed K'};
     mag = 1.2;
     for a = 1:length(animals)
-        place = [xbegin+1.2*(a-1)*figspace_x ybegin+3*figspace_y mag*sq mag*sq];
+        place = [xbegin+(a-1)*figspace_x ybegin+*figspace_y mag*sq mag*sq];
         ax_new = axes(axPars, 'position', place);
         fig = openfig([figpath foldername '\raw_figs\' animals{a} '_ampVSpeakv_uneye.fig'], 'invisible');
     %     fig = openfig([figpath foldername '\raw_figs\ampVSpeakv_all_dis.fig'], 'invisible');
@@ -761,20 +760,19 @@ if strcmp(fignum, 'all') || fignum==7
         xx = [0, 1.1];
         yy = [0, 90];
         axis([xx yy])
-        title(anames{a}, 'fontsize', 6)
         set(gca, 'XTick', [0 1], 'YTick', yy)    
 
         c = colorbar('eastoutside');
         cpos = c.Position;
-        cpos(1) = 1.8+cpos(1);
+        cpos(1) = 1.2*cpos(1);
         cpos(3) = 1.1*cpos(3);
         c.Position = cpos;
         c.AxisLocation = 'out';
         c.Box = 'off';
         c.FontSize = fz;
         c.TickDirection = 'out';
-%         c.Ticks = [1 80 160];
-%         c.Limits = [1 160];
+        c.Ticks = [1 80 160];
+        c.Limits = [1 160];
         c.Label.String = 'the number of microsaccades';
 
         offset_axis([0.05 0.05], axPars)

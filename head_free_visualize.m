@@ -42,14 +42,15 @@ lenses = length(data.session);
 disp([num2str(lenses) ' sessions are included...'])
 
 % task type
-if isfield(data.session, 'pm')
-    tasktype = '_dis';
-else
-    tasktype = '_fix';
-end
-if length(data.session) > 50
-    tasktype = [tasktype '_headfix'];
-end
+tasktype = inputname(1);
+% if isfield(data.session, 'pm')
+%     tasktype = '_dis';
+% else
+%     tasktype = '_fix';
+% end
+% if length(data.session) > 50
+%     tasktype = [tasktype '_headfix'];
+% end
 
 % blue and red
 red = [0.7922 0 0.1255];
@@ -508,9 +509,10 @@ if strcmp(focus, 'all') || strcmp(focus, 'afc')
                 end
                 % response
                 lenps = length(data.session(i).ps.avrew(k).tc.mean);
-                [minv, minidx] = min(data.session(i).ps.avrew(k).tc.mean(1:round(lenps/2)));
-                psavrew(i, k) = max(data.session(i).ps.avrew(k).tc.mean(minidx+1:end)) ...
-                    - minv;
+%                 [minv, minidx] = min(data.session(i).ps.avrew(k).tc.mean(1:round(lenps/2)));
+%                 psavrew(i, k) = max(data.session(i).ps.avrew(k).tc.mean(minidx+1:end)) ...
+%                     - minv;                
+                psavrew(i, k) = nanmean(data.session(i).ps.avrew(k).tc.mean(end-round(lenps/8)+1:end));
             end
             for k = 1:5
                 % time-course
@@ -600,11 +602,11 @@ if strcmp(focus, 'all') || strcmp(focus, 'afc')
         set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
         
         subplot(2,3,5)
-%         minima = min(psavrew(:));
-%         maxima = max(psavrew(:));
-%         axrange = [minima - 0.05*(maxima - minima), ...
-%             maxima + 0.05*(maxima - minima)];
-        axrange = [0 0.6];
+        minima = min(psavrew(:));
+        maxima = max(psavrew(:));
+        axrange = [minima - 0.05*(maxima - minima), ...
+            maxima + 0.05*(maxima - minima)];
+%         axrange = [0 0.6];
         plot(axrange, axrange, '-k', 'linewidth', 0.1)
         hold on;
         plot(psavrew(:,1), psavrew(:,2), 'o', 'markersize', 3, 'color', 'k')
@@ -631,6 +633,7 @@ if strcmp(focus, 'all') || strcmp(focus, 'afc')
         set(gcf, 'Name', 'behavior_pupil', 'NumberTitle', 'off')
         if saveoption==1
             savefig(gcf, [figpath foldername '\raw_figs\beh_ps' tasktype '.fig'])
+            savefig(gcf, [figpath '\Figure5_PupilSize\raw_figs\beh_ps' tasktype '.fig'])
         end
 %         subplot(2,3,3)
 %         col = copper(5);

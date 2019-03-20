@@ -11,18 +11,10 @@ addpath(genpath('Z:\Katsuhisa\code\integrated\'))
 listings = dir(datapath);
 listings(1:2) = [];
 lenl = length(listings);
-ok = zeros(1, lenl);
+ok = ones(1, lenl);
 for i = 1:lenl
-    if contains(listings(i).name, animal)
-        ok(i) = 1;
-    end
+    
 end
-listings(ok==0) = [];
-% switch animal
-%     case 'kiwi_fixed'
-%         listings(end-5:end-4) = [];
-% end
-lenl = length(listings);
 cols = cbrewer('qual', 'Set3', lenl/2);
 close all;
 amp = [];
@@ -36,12 +28,12 @@ for i = 1:lenl/2
     mat(:, nans) = [];
     mat(2, :) = mat(2, :)*500; % to velocity (deg/sec)
     rate(i) = 500*length(mat(1,:))/(ntr*nf);
-    figure(1);
-    subplot(4, 4, i)
-    plot(mat(1,:), mat(2,:), 'o', 'color', cols(i,:), 'markersize', 1)
-    set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
-    rr = corrcoef(mat(1,:), mat(2,:));
-    title({[num2str(i) ': r(pea) = ' num2str(rr(1,2))], [', n=' num2str(length(mat(1,:))) ', rate = ' num2str(rate(i))]})
+%     figure(1);
+%     subplot(4, 4, i)
+%     plot(mat(1,:), mat(2,:), 'o', 'color', cols(i,:), 'markersize', 1)
+%     set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
+%     rr = corrcoef(mat(1,:), mat(2,:));
+%     title({[num2str(i) ': r(pea) = ' num2str(rr(1,2))], [', n=' num2str(length(mat(1,:))) ', rate = ' num2str(rate(i))]})
     amp = [amp, mat(1,:)];
     peakv = [peakv, mat(2,:)];
 end
@@ -51,7 +43,7 @@ figure(2);
 
 % autosave figures
 if saveoption==1
-    savefig(figure(1), [figpath foldername '\raw_figs\' animal '_ampVSpeakv_all_uneye.fig'])
+    savefig(figure(1), [figpath foldername '\raw_figs\ampVSpeakv_all_uneye.fig'])
 end
     
 % all collapsed
@@ -77,5 +69,5 @@ set(gcf, 'Name', 'amplitude vs peak velocity', 'NumberTitle', 'off')
 
 % autosave figures
 if saveoption==1
-    savefig(figure(2), [figpath foldername '\raw_figs\' animal '_ampVSpeakv_uneye.fig'])
+    savefig(figure(2), [figpath foldername '\raw_figs\ampVSpeakv_uneye.fig'])
 end
