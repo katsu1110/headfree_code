@@ -189,12 +189,12 @@ end
 if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
     paranames = {'fix span (log2(deg^2))', 'x variance (deg^2)', 'y variance (deg^2)', ...
             'theta (^o)', 'symmetry index'};
-    fignames = {'no ps artifact correction', 'ps artifact corrected (glm)', 'ps artifact corrected (poly 2)'};
+    fignames = {'no ps artifact correction', 'ps artifact corrected (glm)', 'ps artifact corrected (poly 2)', 'across-trial variance'};
     cmap = [colorGradient([1 1 1], [0 0 1], 10); jet(90)]; 
-    for c = 1:3
+    for c = 1:4
         para.fp(c).params = nan(5, lenses);
     end
-    for c = 1:3
+    for c = 1:4
         if c==2
             continue
         end
@@ -254,23 +254,23 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
             savefig(gcf, [figpath 'Figure3_FixationPrecision\raw_figs\fixSpan_all' tasktype num2str(c) '.fig'])
         end
     end
-    % before and after comparison
-    figure;
-    for i = 1:5
-        subplot(1,5,i)
-        unity_scatter(para.fp(1).params(i,:)', para.fp(end).params(i,:)')
-        title(paranames{i})
-        if i==1
-            xlabel('before')
-            ylabel('after')
-        end
-        axis square
-        hold on;
-    end    
-    % autosave figures
-    if saveoption==1
-        savefig(gcf, [figpath 'Figure3_FixationPrecision\raw_figs\artifactcorr_beforeafter.fig'])
-    end
+%     % before and after comparison
+%     figure;
+%     for i = 1:5
+%         subplot(1,5,i)
+%         unity_scatter(para.fp(1).params(i,:)', para.fp(end).params(i,:)')
+%         title(paranames{i})
+%         if i==1
+%             xlabel('before')
+%             ylabel('after')
+%         end
+%         axis square
+%         hold on;
+%     end    
+%     % autosave figures
+%     if saveoption==1
+%         savefig(gcf, [figpath 'Figure3_FixationPrecision\raw_figs\artifactcorr_beforeafter.fig'])
+%     end
 end
 
 %%
