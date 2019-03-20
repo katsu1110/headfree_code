@@ -8,8 +8,10 @@ datapath = 'Z:/Katsuhisa/headfree_project/dataset/uneye_pred';
 eyepath = 'Z:/Katsuhisa/headfree_project/dataset/eyes_dis_csv';
 addpath(genpath('Z:/Katsuhisa/code/integrated/cbrewer'))
 
-% sessiondate = '2016.01.07';
-sessiondate = '2016.01.06';
+% sessiondate = 'kaki_free_2016.01.13';
+% sessiondate = 'kaki_free_2016.01.06';
+% sessiondate = 'kaki_fixed_2018.10.12';
+sessiondate = 'mango_fixed_2017.11.08';
 
 eyex = csvread([eyepath '/' sessiondate '_x.csv']);
 eyey = csvread([eyepath '/' sessiondate '_y.csv']);
@@ -17,6 +19,7 @@ pred = csvread([datapath '/' sessiondate '_pred.csv']);
 
 j = 605;
 % j = 15;
+% j = 700;
 saccc = 0;
 while saccc < 2
     j = j + 1;
@@ -26,18 +29,19 @@ end
 disp(j)
 close all;
 figure;
-cols1 = cbrewer('qual', 'Pastel2', 8);
+% cols1 = cbrewer('qual', 'Pastel2', 8);
+cols1 = cbrewer('qual', 'Accent', 3);
 subplot(2,4, [1 2 5 6])
 t = [1:size(eyex, 2)]/500;
-plot(t, eyex(j,:), '-', 'color', cols1(7,:), 'linewidth', 0.5)
+plot(t, eyex(j,:), '-', 'color', cols1(1,:), 'linewidth', 0.5)
 set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
 hold on;
 % subplot(2,4, [5 6])
-plot(t, eyey(j,:), '-', 'color', cols1(8,:), 'linewidth', 0.5)
+plot(t, eyey(j,:), '-', 'color', cols1(2,:), 'linewidth', 0.5)
 xlabel('time after stimulus onset (sec)')
 ylabel('eye position (deg)')
-text(1.2, 0.5, 'x position', 'color', cols1(7,:), 'fontsize', 6)
-text(1.2, 0.4, 'y position', 'color', cols1(8,:), 'fontsize', 6)
+text(1.2, 0.5, 'x position', 'color', cols1(1,:), 'fontsize', 6)
+text(1.2, 0.4, 'y position', 'color', cols1(2,:), 'fontsize', 6)
 % set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
 subplot(2,4, [3 7])
 plot(eyex(j,:), eyey(j,:), '-', 'color', 0.5*[1 1 1], 'linewidth', 0.5)
@@ -48,21 +52,21 @@ vy = [0 diff(eyey(j,:))];
 plot(vx, vy, '-', 'color', 0.5*[1 1 1], 'linewidth', 0.5)
 set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
 
-cols = cbrewer('qual', 'Dark2', saccc);
+% cols = cbrewer('qual', 'Dark2', saccc);
 for i = 1:saccc
     idx = start_idx(i):end_idx(i);
     subplot(2,4, [1 2 5 6])
     hold on;
-    plot(t(idx), eyex(j,idx), '-', 'color', cols(i,:), 'linewidth', 0.75)
+    plot(t(idx), eyex(j,idx), '-', 'color', 'k', 'linewidth', 0.75)
 %     subplot(2,4, [5 6])
     hold on;
-    plot(t(idx), eyey(j,idx), '-', 'color', cols(i,:), 'linewidth', 0.75)
+    plot(t(idx), eyey(j,idx), '-', 'color', 'k', 'linewidth', 0.75)
     subplot(2,4, [3 7])
     hold on;
-    plot(eyex(j,idx), eyey(j,idx), '-', 'color', cols(i,:), 'linewidth', 0.75)
+    plot(eyex(j,idx), eyey(j,idx), '-', 'color', 'k', 'linewidth', 0.75)
     subplot(2,4, [4 8])
     hold on;
-    plot(vx(idx), vy(idx), '-', 'color', cols(i,:), 'linewidth', 0.75)
+    plot(vx(idx), vy(idx), '-', 'color', 'k', 'linewidth', 0.75)
 end
 if saveoption == 1
     savefig(gcf, [figpath foldername '\raw_figs\' sessiondate '_' num2str(j) '.fig'])

@@ -24,11 +24,11 @@ if strcmp(fignum, 'all') || fignum==1
 
     % spacing parameters
     xbegin = 2.5;
-    ybegin = 5;
+    ybegin = 10;
     sq = 1.5;
     offset_figlab = [1.8, -0.5];
     figspace_x = 4;
-    figspace_y = 3;
+    figspace_y = -3;
     
     % foldername
     foldername = 'Figure1_HeadFreeSetup';
@@ -185,9 +185,10 @@ if strcmp(fignum, 'all') || fignum==2
     axis off
     
     % e, f (right)
-    labs = {'fixation break (%)', {'median of', 'survivor function','(sec)'}, ...
+    labs = {'fixation break (%)', {'duration for half area', 'of survival function ','(sec)'}, ...
         'working duration (min)'};
-    idx = [3, 2, 4];
+%     idx = [3, 2, 4];
+    idx = [2, 1, 3];
     for k = 1:length(labs)
         if k==1
             place = [xbegin+figspace_x*3 ybegin+figspace_y gr*sq sq];
@@ -197,7 +198,7 @@ if strcmp(fignum, 'all') || fignum==2
             place = [xbegin ybegin gr*sq sq];
         end
         ax_new = axes(axPars, 'position', place);
-        fig = openfig([figpath foldername '\raw_figs\ses_behav_fix.fig'], 'invisible');
+        fig = openfig([figpath foldername '\raw_figs\ses_behavkaki_free_fix.fig'], 'invisible');
         % axis object
         axesObjs = get(fig, 'Children');
         copyobj(axesObjs(idx(k)).Children, ax_new); delete(fig);
@@ -212,7 +213,7 @@ if strcmp(fignum, 'all') || fignum==2
         xlim(xrange)
         yy = round(get(gca, 'YLim'));
         if k==2
-            yy(2) = 4;
+            yy(2) = 1.2;
         end
         set(gca, 'XTick', xrange, 'YTick', [yy(1) mean(yy) yy(2)])
         ylim(yy)
@@ -360,11 +361,11 @@ if strcmp(fignum, 'all') || fignum==4
 
     % spacing parameters
     xbegin = 2.5;
-    ybegin = 5;
+    ybegin = 12;
     sq = 1.5;
     offset_figlab = [1.8, -0.5];
     figspace_x = 4;
-    figspace_y = 3;
+    figspace_y = -3;
     xrange = [1 46];
     
     % color
@@ -372,99 +373,172 @@ if strcmp(fignum, 'all') || fignum==4
     
     % foldername
     foldername = 'Figure3_FixationPrecision';
-    pnames = {'a', 'b'};
+    pnames = {'a', 'b', 'c'};
     
     % examples
-    ind = [6, 18, 29, 38];
-    
-    % a
-    place = [xbegin ybegin gr*sq sq];
-    ax_new = axes(axPars, 'position', place);
-    fig = openfig([figpath foldername '\raw_figs\fixationPrecision_fix1.fig'], 'invisible');
-    % axis object
-    axesObjs = get(fig, 'Children');
-    x = axesObjs(4).Children.YData;
-    y = axesObjs(4).Children.YData;
-    delete(fig);
-    yy = [-6 1];
-    offset = 0.5;
-    cols = cbrewer('qual', 'Accent', 3);
-    plot(ax_new, [1:length(x)]-offset, x, '-o','linewidth', 0.1, 'color', cols(1,:), ...
-        'markersize', 1, 'markerfacecolor', cols(1,:), 'markeredgecolor', cols(1,:))
-    hold(ax_new, 'on');
-    plot(ax_new, [1:length(y)]+offset, y, '-o','linewidth', 0.1, 'color', cols(2,:), ...
-        'markersize', 1, 'markerfacecolor', cols(2,:), 'markeredgecolor', cols(2,:))
-    xlabel('session', 'fontsize', fz)
-    ylabel('variance (deg^2)', 'fontsize', fz)
-    text(20, 0.5,'x position', 'color', cols(1,:), 'fontsize', fz)
-    text(20, -1,'y position', 'color', cols(2,:), 'fontsize', fz)
-    xlim([xrange(1)-offset xrange(2)+offset] )
-    ylim(yy)
-    set(gca, 'XTick', xrange, 'YTick', [yy(1) -3 yy(2)], 'YTickLabel', {'2^{-6}','2^{-3}','2^1'})
-    offset_axis([0.05 0.05], axPars)
-
-    % panel legend
-    place(1:2) = place(1:2) - offset_figlab;
-    axes(axPars,'position', place)
-    title(pnames{1},'fontsize',8)
-    axis off
-    
-    % b
-    yy = [-3 4];
-    for k = 1:2
-        if k==2
-            break
-        end
-        % sessions
-        place = [xbegin+figspace_x*k ybegin gr*sq sq];
+    ind = {[6, 19, 29, 38], [2, 16, 27, 46]};
+    cond = {'free', 'fix'};
+    for i = 1:2
+        % a
+        place = [xbegin+(i-1)*figspace_x ybegin gr*sq sq];
         ax_new = axes(axPars, 'position', place);
-        fig = openfig([figpath foldername '\raw_figs\fixationPrecision_fix' num2str(2*(k-1)+1) '.fig'], 'invisible');
+        fig = openfig([figpath foldername '\raw_figs\fixationPrecisionkaki_' cond{i} '_fix1.fig'], 'invisible');
         % axis object
         axesObjs = get(fig, 'Children');
-        copyobj(axesObjs(end).Children, ax_new); delete(fig);
-        for l = 1:length(ind)
-            hold(ax_new, 'on');
-            plot(ind(l)*[1 1], [2.5 5], '-k', 'linewidth', 0.1)
-        end       
+        x = axesObjs(3).Children.YData;
+        y = axesObjs(4).Children.YData;
+        delete(fig);
+        yy = [-7 1];
+        offset = 0.5;
+        cols = cbrewer('qual', 'Accent', 3);
+        plot(ax_new, [1:length(x)]-offset, x, '-o','linewidth', 0.1, 'color', cols(1,:), ...
+            'markersize', 1, 'markerfacecolor', cols(1,:), 'markeredgecolor', cols(1,:))
+        hold(ax_new, 'on');
+        plot(ax_new, [1:length(y)]+offset, y, '-o','linewidth', 0.1, 'color', cols(2,:), ...
+            'markersize', 1, 'markerfacecolor', cols(2,:), 'markeredgecolor', cols(2,:))
         xlabel('session', 'fontsize', fz)
-        if k==1
-%             title('uncorrected', 'fontsize', fz)
-            ylabel('fixation span (deg^2)', 'fontsize', fz)
-        elseif k==2
-            title('corrected', 'fontsize', fz)
-        end
-        xlim(xrange)
+        ylabel('variance (deg^2)', 'fontsize', fz)
+        text(20, 0.5,'x position', 'color', cols(1,:), 'fontsize', fz)
+        text(20, -1,'y position', 'color', cols(2,:), 'fontsize', fz)
+        xlim([xrange(1)-offset xrange(2)+offset] )
         ylim(yy)
-        set(gca, 'XTick', xrange, 'YTick', [yy(1) 0 yy(2)], 'YTickLabel', {'2^{-3}','2^0','2^4'})
+        set(gca, 'XTick', xrange, 'YTick', [yy(1) -3 yy(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^1'})
         offset_axis([0.05 0.05], axPars)
-        
+
         % panel legend
-        place(1:2) = place(1:2) - offset_figlab;
-        axes(axPars,'position', place)
-        title(pnames{k+1},'fontsize',8)
-        axis off
-        
-        % examples
-        for l = 1:length(ind)
-            place = [xbegin+figspace_x*k+(l-1)*figspace_x/3 ybegin+figspace_y sq/3 sq/3];
+        if i == 1
+            place(1:2) = place(1:2) - offset_figlab;
+            axes(axPars,'position', place)
+            title(pnames{1},'fontsize',8)
+            axis off
+        end
+
+        % b
+        yy = {[-4 4], [-7 2]};
+        lab = [1 4];
+        for k = 1:2
+            % sessions
+            place = [xbegin+figspace_x*(i-1) ybegin+figspace_y*k gr*sq sq];
             ax_new = axes(axPars, 'position', place);
-            fig = openfig([figpath foldername '\raw_figs\fixSpan_all_fix' num2str(2*(k-1)+1) '.fig'], 'invisible');
+            fig = openfig([figpath foldername '\raw_figs\fixationPrecisionkaki_' cond{i} '_fix' num2str(lab(k)) '.fig'], 'invisible');
             % axis object
             axesObjs = get(fig, 'Children');
-            copyobj(axesObjs(end-ind(l)+1).Children, ax_new); delete(fig);
-            colormap(cmap)
-%             caxis
-            caxis([0 0.0008])
-            title(num2str(ind(l)), 'fontsize', fz)
-            axis(0.8*[-1 1 -1 1])
-            if k > 1 || l > 1
-                set(gca, 'XTick', [], 'YTick', [])
+            copyobj(axesObjs(end).Children, ax_new); delete(fig);
+            for l = 1:length(ind{i})
+                hold(ax_new, 'on');
+                plot(ind{i}(l)*[1 1], [2.5 5], '-k', 'linewidth', 0.1)
+            end       
+            xlabel('session', 'fontsize', fz)
+            ylabel('fixation span (deg^2)', 'fontsize', fz)
+            if k==1
+                title('within-trial variability', 'fontsize', fz)
+            elseif k==2
+                title('across-trial variability', 'fontsize', fz)
             end
-            set(gca,'DefaultTextFontSize',fz)
-%             offset_axis(0, axPars)
-        end
-        
-    end   
+            xlim(xrange)
+            ylim(yy{k})
+            if k==1
+                set(gca, 'XTick', xrange, 'YTick', [yy{k}(1) 0 yy{k}(2)], 'YTickLabel', {'2^{-3}','2^0','2^4'})
+            else
+                set(gca, 'XTick', xrange, 'YTick', [yy{k}(1) -3 yy{k}(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^{2}'})
+            end
+            offset_axis([0.05 0.05], axPars)
+
+            % panel legend
+            if i==1
+                place(1:2) = place(1:2) - offset_figlab;
+                axes(axPars,'position', place)
+                title(pnames{k+1},'fontsize',8)
+                axis off
+            end
+
+            % examples
+            for l = 1:length(ind{i})
+                place = [xbegin+figspace_x*(i-1)+(l-1)*figspace_x/4 ybegin-k*figspace_y sq/3 sq/3];
+                ax_new = axes(axPars, 'position', place);
+                fig = openfig([figpath foldername '\raw_figs\fixSpan_allkaki_' cond{i} '_fix' num2str(lab(k)) '.fig'], 'invisible');
+                % axis object
+                axesObjs = get(fig, 'Children');
+                copyobj(axesObjs(end-ind{i}(l)+1).Children, ax_new); delete(fig);
+                colormap(cmap)
+    %             caxis
+%                 caxis([0 0.0008])
+                title(num2str(ind{i}(l)), 'fontsize', fz)
+                if k ==1
+                    axis(0.8*[-1 1 -1 1])
+                else
+                    axis(0.5*[-1 1 -1 1])
+                end
+                if l > 1
+                    set(gca, 'XTick', [], 'YTick', [])
+                end
+                set(gca,'DefaultTextFontSize',fz)
+    %             offset_axis(0, axPars)
+            end
+
+            % mango
+            % sessions
+            maidx = [3, 6];
+            place = [xbegin+figspace_x*3 ybegin+figspace_y*k gr*sq sq];
+            ax_new = axes(axPars, 'position', place);
+            fig = openfig([figpath foldername '\raw_figs\fixationPrecisionmango_fix' num2str(lab(k)) '.fig'], 'invisible');
+            % axis object
+            axesObjs = get(fig, 'Children');
+            copyobj(axesObjs(end).Children, ax_new); delete(fig);
+            for l = 1:length(maidx)
+                hold(ax_new, 'on');
+                plot(maidx(l)*[1 1], [2.5 5], '-k', 'linewidth', 0.1)
+            end       
+            xlabel('session', 'fontsize', fz)
+            ylabel('fixation span (deg^2)', 'fontsize', fz)
+            if k==1
+                title('within-trial variability', 'fontsize', fz)
+            elseif k==2
+                title('across-trial variability', 'fontsize', fz)
+            end
+            xlim([1 l])
+            ylim(yy{k})
+            if k==1
+                set(gca, 'XTick', [1 l], 'YTick', [yy{k}(1) 0 yy{k}(2)], 'YTickLabel', {'2^{-3}','2^0','2^4'})
+            else
+                set(gca, 'XTick', [1 l], 'YTick', [yy{k}(1) -3 yy{k}(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^{2}'})
+            end
+            offset_axis([0.05 0.05], axPars)
+
+            % panel legend
+            if i==1
+                place(1:2) = place(1:2) - offset_figlab;
+                axes(axPars,'position', place)
+                title(pnames{k+1},'fontsize',8)
+                axis off
+            end
+
+            % examples
+            for l = 1:2
+                place = [xbegin+figspace_x*3+(l-1)*figspace_x/4 ybegin-k*figspace_y sq/3 sq/3];
+                ax_new = axes(axPars, 'position', place);
+                fig = openfig([figpath foldername '\raw_figs\fixSpan_allmango_fix' num2str(lab(k)) '.fig'], 'invisible');
+                % axis object
+                axesObjs = get(fig, 'Children');
+                copyobj(axesObjs(end-maidx(l)+1).Children, ax_new); delete(fig);
+                colormap(cmap)
+    %             caxis
+%                 caxis([0 0.0008])
+                title(num2str(maidx(l)), 'fontsize', fz)
+                if k ==1
+                    axis(0.8*[-1 1 -1 1])
+                else
+                    axis(0.5*[-1 1 -1 1])
+                end
+                if l > 1
+                    set(gca, 'XTick', [], 'YTick', [])
+                end
+                set(gca,'DefaultTextFontSize',fz)
+    %             offset_axis(0, axPars)
+            end
+
+        end   
+    end
        
     % autosave
     savefig([figpath foldername '\formatted_figs\fig_paper.fig'])
@@ -585,16 +659,19 @@ if strcmp(fignum, 'all') || fignum==6
     foldername = 'Figure5_PupilSize';
     
     ax_new = axes(axPars, 'position', [xbegin ybegin+figspace_y gr*sq sq]);
-    fig = openfig([figpath foldername '\raw_figs\beh_ps_dis.fig'], 'invisible');
+    fig = openfig([figpath foldername '\raw_figs\beh_pskaki_free_dis.fig'], 'invisible');
     % axis object
     axesObjs = get(fig, 'Children');
     copyobj(axesObjs(4).Children, ax_new); delete(fig);
     xlabel({'time after stimulus onset', '(sec)'}, 'fontsize', fz)
     ylabel({'z-scored pupil size', '(a.u.)'}, 'fontsize', fz)
     xx = get(gca, 'XLim');
-    ylim(0.4*[-1 1])
+%     ylim(0.4*[-1 1])
+    ylim([-1 1.5])
+%     set(gca, 'XTick', xx, 'XTickLabel', [0 2], ...
+%         'YTick', [-0.4 0 0.4])
     set(gca, 'XTick', xx, 'XTickLabel', [0 2], ...
-        'YTick', [-0.4 0 0.4])
+        'YTick', [-1 0 1.5])
     offset_axis([0.05 0.05], axPars)
     
     % panel legend
@@ -605,14 +682,18 @@ if strcmp(fignum, 'all') || fignum==6
 
     % e
     ax_new = axes(axPars, 'position', [xbegin+1.5*figspace_x ybegin+figspace_y sq sq]);
-    fig = openfig([figpath foldername '\raw_figs\beh_ps_dis.fig'], 'invisible');
+    fig = openfig([figpath foldername '\raw_figs\beh_pskaki_free_dis.fig'], 'invisible');
     % axis object
     axesObjs = get(fig, 'Children');
     copyobj(axesObjs(2).Children, ax_new); delete(fig);
-    xlabel({'pupil response (a.u.)', '(small available reward)'}, 'fontsize', fz)
-    ylabel({'pupil response (a.u.)', '(large available reward)'}, 'fontsize', fz)
-    set(gca, 'XTick', [0 0.6], 'YTick', [0 0.6])
-    axis([0 0.6 0 0.6])
+%     xlabel({'pupil response (a.u.)', '(small available reward)'}, 'fontsize', fz)
+%     ylabel({'pupil response (a.u.)', '(large available reward)'}, 'fontsize', fz)
+    xlabel({'mean pupil size (a.u.)', '(small available reward)'}, 'fontsize', fz)
+    ylabel({'mean pupil size (a.u.)', '(large available reward)'}, 'fontsize', fz)
+%     set(gca, 'XTick', [0 0.6], 'YTick', [0 0.6])
+%     axis([0 0.6 0 0.6])
+    set(gca, 'XTick', [-0.4 0 0.4], 'YTick', [-0.4 0 0.4])
+    axis([-0.4 0.4 -0.4 0.4])
     offset_axis([0.05 0.05], axPars)
     
     % panel legend
@@ -716,9 +797,12 @@ if strcmp(fignum, 'all') || fignum==7
 %     end
 
     % a
-    listses = {'2016.01.07_48', '2016.01.06_606'};
+    listses = {'kaki_free_2016.01.07_48', 'kaki_free_2016.01.06_606', ...
+        'kaki_fixed_2018.10.12_701', 'kaki_fixed_2018.10.12_606', ...
+        'mango_fixed_2017.11.08_606', 'mango_fixed_2017.11.08_16'};
+    m = 3.1*[0 0 1 1 2 2]; 
     for k = 1:length(listses)
-        place = [xbegin ybegin+figspace_y*(2-k) gr*sq sq/2];
+        place = [xbegin+m(k) ybegin+figspace_y*(1 + mod(k, 2)) 0.8*gr*sq 0.8*sq];
         ax_new = axes(axPars, 'position', place);
         fig = openfig([figpath foldername '\raw_figs\' listses{k} '.fig'], 'invisible');
         % axis object
@@ -743,8 +827,9 @@ if strcmp(fignum, 'all') || fignum==7
     end
     
     % b
-    animals = {'kaki_free', 'kaki_fixed', 'mango_fixed', 'kiwi_fixed'};
-    anames = {'head-free A', 'head-fixed A', 'head-fixed M', 'head-fixed K'};
+    animals = {'kaki_free', 'kaki_fixed', 'mango_fixed'};
+    anames = {'head-free A', 'head-fixed A', 'head-fixed M'};
+    range = [160, 70, 130];
     mag = 1.2;
     for a = 1:length(animals)
         place = [xbegin+1.2*(a-1)*figspace_x ybegin+3*figspace_y mag*sq mag*sq];
@@ -766,15 +851,15 @@ if strcmp(fignum, 'all') || fignum==7
 
         c = colorbar('eastoutside');
         cpos = c.Position;
-        cpos(1) = 1.8+cpos(1);
+        cpos(1) = 0.05+cpos(1);
         cpos(3) = 1.1*cpos(3);
         c.Position = cpos;
         c.AxisLocation = 'out';
         c.Box = 'off';
         c.FontSize = fz;
         c.TickDirection = 'out';
-%         c.Ticks = [1 80 160];
-%         c.Limits = [1 160];
+        c.Ticks = [1 range(a)/2 range(a)];
+        c.Limits = [1 range(a)];
         c.Label.String = 'the number of microsaccades';
 
         offset_axis([0.05 0.05], axPars)
