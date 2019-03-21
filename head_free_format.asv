@@ -47,7 +47,7 @@ if strcmp(fignum, 'all') || fignum==1
     % a panel number
     axes(axPars,'position', [xbegin-offset_figlab(1) ybegin+2*figspace_y-offset_figlab(2)...
         2*gr*sq sq])
-    title('a','fontsize',9.33)
+    title('a','fontsize',8)
     axis off
     
     % c
@@ -77,7 +77,7 @@ if strcmp(fignum, 'all') || fignum==1
     
     % c panel number
     axes(axPars,'position', [xbegin-offset_figlab(1) ybegin+figspace_y/3-offset_figlab(2) gr*sq sq])
-    title('c','fontsize',9.33)
+    title('c','fontsize',8)
     axis off
     
     % autosave
@@ -116,7 +116,7 @@ if strcmp(fignum, 'all') || fignum==2
         
     % a
     axes(axPars,'position', [xbegin-offset_figlab(1) ybegin+figspace_y-offset_figlab(2) gr*sq sq])
-    title('a','fontsize',9.33)
+    title('a','fontsize',8)
     axis off
     
     % b, c
@@ -142,7 +142,7 @@ if strcmp(fignum, 'all') || fignum==2
         % panel legend
         place(1:2) = place(1:2) - offset_figlab;
         axes(axPars,'position', place)
-        title(pnames{k},'fontsize',9.33)
+        title(pnames{k},'fontsize',8)
         axis off
     end   
         
@@ -171,9 +171,9 @@ if strcmp(fignum, 'all') || fignum==2
     set(ax_new, 'box', 'off'); set(ax_new, 'TickDir', 'out')
     xlabel({'time after fixation start', '(sec)'}, 'fontsize', fz)
     ylabel('P(keep fixation)', 'fontsize', fz)    
-    text(1.3, 0.95, 'session:', 'fontsize', 7)
+    text(1.3, 0.95, 'session:', 'fontsize', 6)
     for l = 1:length(ind)
-        text(1.5, 0.95-0.1*l, num2str(ind(l)), 'color', cols(l,:), 'fontsize', 7)
+        text(1.5, 0.95-0.1*l, num2str(ind(l)), 'color', cols(l,:), 'fontsize', 6)
     end
     set(ax_new, 'XTick', [0 1 2], 'YTick', [0.5 1])
     set(ax_new,'DefaultTextFontSize',fz)
@@ -181,7 +181,7 @@ if strcmp(fignum, 'all') || fignum==2
     
     % panel legend
     axes(axPars,'position', [xbegin+figspace_x-offset_figlab(1) ybegin-offset_figlab(2) gr*sq sq])
-    title(pnames{3},'fontsize',9.33)
+    title(pnames{3},'fontsize',8)
     axis off
     
     % e, f (right)
@@ -224,7 +224,7 @@ if strcmp(fignum, 'all') || fignum==2
         if ismember(k, [1 3])
             place(1:2) = place(1:2) - offset_figlab;
             axes(axPars,'position', place)
-            title(pnames{3+k},'fontsize',9.33)
+            title(pnames{3+k},'fontsize',8)
             axis off
         end
     end
@@ -310,7 +310,7 @@ end
 %         if mod(l, 2)==1
 %             place(1:2) = place(1:2) - offset_figlab;
 %             axes(axPars,'position', place)
-%             title(panels{l},'fontsize',9.33)
+%             title(panels{l},'fontsize',8)
 %             axis off
 %         end
 %     end    
@@ -338,7 +338,7 @@ end
 %         % panel legend
 %         place(1:2) = place(1:2) - offset_figlab;
 %         axes(axPars,'position', place)
-%         title(panels{3+l},'fontsize',9.33)
+%         title(panels{3+l},'fontsize',8)
 %         axis off
 %     end
 %     
@@ -410,7 +410,7 @@ if strcmp(fignum, 'all') || fignum==4
         if i == 1
             place(1:2) = place(1:2) - offset_figlab;
             axes(axPars,'position', place)
-            title(pnames{1},'fontsize',9.33)
+            title(pnames{1},'fontsize',8)
             axis off
         end
 
@@ -450,7 +450,7 @@ if strcmp(fignum, 'all') || fignum==4
             if i==1
                 place(1:2) = place(1:2) - offset_figlab;
                 axes(axPars,'position', place)
-                title(pnames{k+1},'fontsize',9.33)
+                title(pnames{k+1},'fontsize',8)
                 axis off
             end
 
@@ -511,7 +511,7 @@ if strcmp(fignum, 'all') || fignum==4
             if i==1
                 place(1:2) = place(1:2) - offset_figlab;
                 axes(axPars,'position', place)
-                title(pnames{k+1},'fontsize',9.33)
+                title(pnames{k+1},'fontsize',8)
                 axis off
             end
 
@@ -575,7 +575,7 @@ if strcmp(fignum, 'all') || fignum==5
     
     % a
     axes(axPars,'position', [xbegin ybegin+4*figspace_y-offset_figlab(2) gr*sq sq])
-    title('a','fontsize',9.33)
+    title('a','fontsize',8)
     axis off
     
     % b
@@ -596,7 +596,7 @@ if strcmp(fignum, 'all') || fignum==5
     % panel legend
     axes(axPars,'position', [xbegin+figspace_x-offset_figlab(1) ...
         ybegin+4*figspace_y-offset_figlab(2) gr*sq sq])
-    title('b','fontsize',9.33)
+    title('b','fontsize',8)
     axis off
     
     % c (example pms)
@@ -631,7 +631,7 @@ if strcmp(fignum, 'all') || fignum==5
     % panel legend
     axes(axPars,'position', [xbegin+figspace_x-offset_figlab(1) ...
         ybegin+2*figspace_y-offset_figlab(2) gr*sq sq])
-    title('c','fontsize',9.33)
+    title('c','fontsize',8)
     axis off
     
     % autosave
@@ -679,7 +679,7 @@ if strcmp(fignum, 'all') || fignum==6
     % panel legend
     axes(axPars,'position', [xbegin-offset_figlab(1) ybegin+figspace_y-offset_figlab(2)...
         gr*sq sq])
-    title('a','fontsize',9.33)
+    title('a','fontsize',8)
     axis off
 
     % e
@@ -701,7 +701,7 @@ if strcmp(fignum, 'all') || fignum==6
     % panel legend
     axes(axPars,'position', [xbegin+1.5*figspace_x-offset_figlab(1) ybegin+figspace_y-offset_figlab(2)...
         gr*sq sq])
-    title('b','fontsize',9.33)
+    title('b','fontsize',8)
     axis off
     
     % autosave
@@ -793,7 +793,7 @@ if strcmp(fignum, 'all') || fignum==7
 %         if l == 1
 %             place(1:2) = place(1:2) - offset_figlab;
 %             axes(axPars,'position', place)
-%             title('a','fontsize',9.33)
+%             title('a','fontsize',8)
 %             axis off
 %         end
 %     end
@@ -821,7 +821,7 @@ if strcmp(fignum, 'all') || fignum==7
         if k==1
             place(1:2) = place(1:2) - offset_figlab;
             axes(axPars,'position', place)
-            title('a','fontsize',9.33)
+            title('a','fontsize',8)
             axis off
         else
             xlabel('time after stimulus onset (sec)', 'fontsize', fz)
@@ -830,9 +830,9 @@ if strcmp(fignum, 'all') || fignum==7
     end
     
     % b
-    animals = {'kaki_free', 'kaki_fixed', 'mango_fixed', 'kiwi_fix'};
-    anames = {'head-free animal A', 'head-fixed animal A', 'head-fixed animal M', 'head-fixed animal K'};
-    range = [160, 70, 130, 100];
+    animals = {'kaki_free', 'kaki_fixed', 'mango_fixed', 'kiwi_fixed'};
+    anames = {'head-free A', 'head-fixed A', 'head-fixed M'};
+    range = [160, 70, 130];
     mag = 1.2;
     for a = 1:length(animals)
         place = [xbegin+1.2*(a-1)*figspace_x ybegin+3*figspace_y mag*sq mag*sq];
@@ -849,7 +849,7 @@ if strcmp(fignum, 'all') || fignum==7
         xx = [0, 1.1];
         yy = [0, 90];
         axis([xx yy])
-        title(anames{a}, 'fontsize', 7)
+        title(anames{a}, 'fontsize', 6)
         set(gca, 'XTick', [0 1], 'YTick', yy)    
 
         c = colorbar('eastoutside');
@@ -871,7 +871,7 @@ if strcmp(fignum, 'all') || fignum==7
             % panel legend
             place(1:2) = place(1:2) - offset_figlab;
             axes(axPars,'position', place)
-            title('b','fontsize',9.33)
+            title('b','fontsize',8)
             axis off
         end
     end

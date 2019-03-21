@@ -18,10 +18,10 @@ for i = 1:lenl
     end
 end
 listings(ok==0) = [];
-% switch animal
-%     case 'kiwi_fixed'
-%         listings(end-5:end-4) = [];
-% end
+switch animal
+    case 'kiwi_fixed'
+        listings([4 14]) = [];
+end
 lenl = length(listings);
 cols = cbrewer('qual', 'Set3', lenl/2);
 close all;
@@ -37,7 +37,7 @@ for i = 1:lenl/2
     mat(2, :) = mat(2, :)*500; % to velocity (deg/sec)
     rate(i) = 500*length(mat(1,:))/(ntr*nf);
     figure(1);
-    subplot(4, 4, i)
+    subplot(4, 6, i)
     plot(mat(1,:), mat(2,:), 'o', 'color', cols(i,:), 'markersize', 1)
     set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
     rr = corrcoef(mat(1,:), mat(2,:));

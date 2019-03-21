@@ -107,8 +107,8 @@ switch lower(animal)
         
         % discrimination task
         datapath{2} = [mypath '/data/kiwi/dx_training/'];
-        startname = '2015.10.12';
-        stopname = '2015.10.31';
+        startname = '2018.09.12';
+        stopname = '2018.12.20';
         lists{2} = meke_list(datapath{2}, startname, stopname);
 end
         

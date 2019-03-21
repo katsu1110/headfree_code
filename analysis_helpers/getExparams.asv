@@ -56,22 +56,17 @@ catch % old file?
     try
         dpp = compute_dpp(ex.viewingDistance, ...
             ex.monitorWidth, ex.screenRect(3:4));
-    catch
-        dpp = compute_dpp(143, ...
-            59, ex.screenRect(3:4));
-    end
 end
      
 % fixation window
 if isfield(ex,'fix')
    fixWin = dpp*[ex.fix.WinW; ex.fix.WinH];
-   % size of fixation point
-    fixpoint = dpp*ex.fix.PSz;
 else
     fixWin = dpp*[ex.fixWinW; ex.fixWinH];
-    % size of fixation point
-    fixpoint = dpp*ex.fixPSz;
 end
+
+% size of fixation point
+fixpoint = dpp*ex.fix.PSz;
 
 % stimulus position
 if isfield(ex,'stim')
@@ -104,17 +99,15 @@ end
 params.len_alltr = len_alltr;
 params.len_tr = len_tr;
 params.fixdur = fixDur;
-if isfield(ex, 'fix')
-    if isfield(ex.fix, 'preStimDuration')
-        params.prestmdur = ex.fix.preStimDuration;
-    else
-        params.prestmdur = 0;
-    end
-    if isfield(ex.fix, 'stimDuration')
-        params.stmdur = ex.fix.stimDuration;
-    else
-        params.stmdur = params.fixdur - params.prestmdur;
-    end
+if isfield(ex.fix, 'preStimDuration')
+    params.prestmdur = ex.fix.preStimDuration;
+else
+    params.prestmdur = 0;
+end
+if isfield(ex.fix, 'stimDuration')
+    params.stmdur = ex.fix.stimDuration;
+else
+    params.stmdur = params.fixdur - params.prestmdur;
 end
 params.screenNum = screenNum;
 params.fixwin = fixWin;

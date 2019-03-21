@@ -11,15 +11,17 @@ addpath(genpath('Z:/Katsuhisa/code/integrated/cbrewer'))
 % sessiondate = 'kaki_free_2016.01.13';
 % sessiondate = 'kaki_free_2016.01.06';
 % sessiondate = 'kaki_fixed_2018.10.12';
-sessiondate = 'mango_fixed_2017.11.08';
+% sessiondate = 'mango_fixed_2017.11.08';
+sessiondate = 'kiwi_fixed_2018.12.20';
 
 eyex = csvread([eyepath '/' sessiondate '_x.csv']);
 eyey = csvread([eyepath '/' sessiondate '_y.csv']);
 pred = csvread([datapath '/' sessiondate '_pred.csv']);
 
-j = 605;
+% j = 605;
 % j = 15;
 % j = 700;
+j = 100;
 saccc = 0;
 while saccc < 2
     j = j + 1;
