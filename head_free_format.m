@@ -376,7 +376,7 @@ if strcmp(fignum, 'all') || fignum==4
     pnames = {'a', 'b', 'c'};
     
     % examples
-    ind = {[6, 19, 29, 38], [2, 16, 27, 46]};
+    ind = {[6, 18, 29, 38], [2, 16, 27, 46]};
     cond = {'free', 'fix'};
     for i = 1:2
         % a
@@ -467,7 +467,7 @@ if strcmp(fignum, 'all') || fignum==4
 %                 caxis([0 0.0008])
                 title(num2str(ind{i}(l)), 'fontsize', fz)
                 if k ==1
-                    axis(0.8*[-1 1 -1 1])
+                    axis(0.5*[-1 1 -1 1])
                 else
                     axis(0.5*[-1 1 -1 1])
                 end
@@ -528,7 +528,7 @@ if strcmp(fignum, 'all') || fignum==4
 %                 caxis([0 0.0008])
                 title(num2str(maidx(l)), 'fontsize', fz)
                 if k ==1
-                    axis(0.8*[-1 1 -1 1])
+                    axis(0.5*[-1 1 -1 1])
                 else
                     axis(0.5*[-1 1 -1 1])
                 end
