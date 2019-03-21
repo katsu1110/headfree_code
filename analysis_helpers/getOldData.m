@@ -52,29 +52,28 @@ for a = 1:length(animals)
     ids(outs) = [];
     eyeveclen(outs) = [];
     reward(outs) = [];
-    e = eyeveclen(1);
-    r = reward{1};
-    p = params{1};
     d = ids{1};
     c = 1;
-    for f = 2:length(params)
-        if strcmp(d, ids{f})
-            try
-                p = concatenate_params(p, params{f});
-            catch
-                p = params{f};
-            end
-            e = e + eyeveclen(f);
-            r = [r, reward{f}];
-        else
-            data.session(c).date = ids{f-1};
-            data.session(c).params = p;
-            data.session(c).eyedata.reward = r;
-            data.session(c).eyedata.eyeveclen = e;
-            c = c + 1;
-            r = [];
-            e = 0;
+    idx = 1;
+    f = 2;
+    while f < length(params)
+        while strcmp(d, ids{f})
+            idx = [idx, f];
+            f = f + 1;
         end
+        data.session(c).date = d;
+        p = params{idx(1)};
+        e = eyeveclen(idx(1));
+        r = reward{idx(1)};
+        for k = idx(2):idx(end)
+            p = concatenate_params(p, params{k});
+            e = e + eyeveclen(k);
+            r = [r, reward{k}];
+        end
+        data.session(c).params = p;
+        data.session(c).eyedata.reward = r;
+        data.session(c).eyedata.eyeveclen = e;
+        idx = [];        
     end
     
     % autosave
