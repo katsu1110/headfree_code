@@ -196,7 +196,7 @@ end
 %%
 % fixation precision (fix span, x var, y var, theta, SI)
 if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
-    paranames = {'fix span (log2(deg^2))', 'x variance (deg^2)', 'y variance (deg^2)', ...
+    paranames = {'fix span (log10(deg^2))', 'x variance (deg^2)', 'y variance (deg^2)', ...
             'theta (^o)', 'symmetry index'};
     fignames = {'no ps artifact correction', 'ps artifact corrected (glm)', 'ps artifact corrected (poly 2)', 'across-trial variance'};
     cmap = [colorGradient([1 1 1], [0 0 1], 10); jet(90)]; 
@@ -225,9 +225,12 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
         disp(['median fix span = ' num2str(median(para.fp(c).params(1, :)))])
         
         % log2 transform
-        para.fp(c).params(1, :) = log2(para.fp(c).params(1, :));
-        para.fp(c).params(2, :) = log2(para.fp(c).params(2, :));
-        para.fp(c).params(3, :) = log2(para.fp(c).params(3, :));
+%         para.fp(c).params(1, :) = log2(para.fp(c).params(1, :));
+%         para.fp(c).params(2, :) = log2(para.fp(c).params(2, :));
+%         para.fp(c).params(3, :) = log2(para.fp(c).params(3, :));
+        para.fp(c).params(1, :) = log10(para.fp(c).params(1, :));
+        para.fp(c).params(2, :) = log10(para.fp(c).params(2, :));
+        para.fp(c).params(3, :) = log10(para.fp(c).params(3, :));
         
         % plot
         session_plot(para.fp(c).params, [], paranames, 'fixation precision')

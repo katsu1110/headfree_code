@@ -388,7 +388,7 @@ if strcmp(fignum, 'all') || fignum==4
         x = axesObjs(3).Children.YData;
         y = axesObjs(4).Children.YData;
         delete(fig);
-        yy = [-7 1];
+        yy = [-3 1];
         offset = 0.5;
         cols = cbrewer('qual', 'Accent', 3);
         plot(ax_new, [1:length(x)]-offset, x, '-o','linewidth', 0.1, 'color', cols(1,:), ...
@@ -402,7 +402,8 @@ if strcmp(fignum, 'all') || fignum==4
         text(20, -1,'y position', 'color', cols(2,:), 'fontsize', fz)
         xlim([xrange(1)-offset xrange(2)+offset] )
         ylim(yy)
-        set(gca, 'XTick', xrange, 'YTick', [yy(1) -3 yy(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^1'})
+%         set(gca, 'XTick', xrange, 'YTick', [yy(1) -3 yy(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^1'})
+        set(gca, 'XTick', xrange, 'YTick', [-3 -2 -1 0 1], 'YTickLabel', {'0.001','0.01','0.1', '1', '10'})        
         offset_axis([0.05 0.05], axPars)
 
         % panel legend
@@ -414,7 +415,8 @@ if strcmp(fignum, 'all') || fignum==4
         end
 
         % b
-        yy = {[-4 4], [-7 2]};
+%         yy = {[-4 4], [-7 2]};
+        yy = {[-2 2], [-3 1]};
         lab = [1 4];
         for k = 1:2
             % sessions
@@ -438,9 +440,9 @@ if strcmp(fignum, 'all') || fignum==4
             xlim(xrange)
             ylim(yy{k})
             if k==1
-                set(gca, 'XTick', xrange, 'YTick', [yy{k}(1) 0 yy{k}(2)], 'YTickLabel', {'2^{-3}','2^0','2^4'})
+                set(gca, 'XTick', [1 10 20 30 40], 'YTick', [-2, -1, 0, 1, 2], 'YTickLabel', {'0.01','0.1','1','10', '100'})
             else
-                set(gca, 'XTick', xrange, 'YTick', [yy{k}(1) -3 yy{k}(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^{2}'})
+                set(gca, 'XTick', [1 10 20 30 40], 'YTick', [-3, -2, -1, 0, 1], 'YTickLabel', {'0.001','0.01','0.1','1', '10'})
             end
             offset_axis([0.05 0.05], axPars)
 
@@ -499,9 +501,9 @@ if strcmp(fignum, 'all') || fignum==4
             xlim([1 l])
             ylim(yy{k})
             if k==1
-                set(gca, 'XTick', [1 l], 'YTick', [yy{k}(1) 0 yy{k}(2)], 'YTickLabel', {'2^{-3}','2^0','2^4'})
+                set(gca, 'XTick', [1 10 20 30 40], 'YTick', [-2, -1, 0, 1], 'YTickLabel', {'0.01','0.1','1','10', '100'})
             else
-                set(gca, 'XTick', [1 l], 'YTick', [yy{k}(1) -3 yy{k}(2)], 'YTickLabel', {'2^{-7}','2^{-3}','2^{2}'})
+                set(gca, 'XTick', [1 10 20 30 40], 'YTick', [-3, -2, -1, 0, 1], 'YTickLabel', {'0.001','0.01','0.1','1', '10'})
             end
             offset_axis([0.05 0.05], axPars)
 
