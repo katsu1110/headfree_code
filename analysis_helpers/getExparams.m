@@ -115,6 +115,9 @@ if isfield(ex, 'fix')
     else
         params.stmdur = params.fixdur - params.prestmdur;
     end
+else
+    params.prestmdur = 0;
+    params.stmdur = fixDur;
 end
 params.screenNum = screenNum;
 params.fixwin = fixWin;

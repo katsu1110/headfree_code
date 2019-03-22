@@ -247,23 +247,24 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
         figure;
         nr = floor(sqrt(lenses));
         nc = ceil((lenses)/nr);
-%         smoothr = [24, 1, 1, 3];
+        smoothr = [3 1, 1, 2];
         for i = 1:lenses
             subplot(nr, nc, i)
             x = data.session(i).fixPrecision{c}.edge_x;
             y = data.session(i).fixPrecision{c}.edge_y;
             m = data.session(i).fixPrecision{c}.Prob';
 %             m = imresize(m, [256, 256]);
-%             m = smooth2a(m, smoothr(c), smoothr(c));
+            m = smooth2a(m, smoothr(c), smoothr(c));
             m = m./max(m(:));
 %             m(m < 0.25) = 0;
-            [~, thre_i] = clear_cbar(m);
-            lenm = length(m(:));
+%             [~, thre_i] = clear_cbar(m);
+%             lenm = length(m(:));
             imagesc(x, y, m)           
-            cmap = [ones(lenm - thre_i, 3); jet(thre_i)];
+%             cmap = [ones(lenm - thre_i, 3); jet(thre_i)];
             colormap(cmap)
 %             colorbar('southoutside')
-%             caxis([0 0.01])
+            caxis([0 1])
+            ca = caxis
     %         xlim(max(data.session(i).params.fixwin(1,:))*[-1 1])
     %         ylim(max(data.session(i).params.fixwin(2,:))*[-1 1])
             axis(0.5*[-1 1 -1 1])
