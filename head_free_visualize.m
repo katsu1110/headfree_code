@@ -200,7 +200,7 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
             'theta (^o)', 'symmetry index'};
     fignames = {'no ps artifact correction', 'ps artifact corrected (glm)', 'ps artifact corrected (poly 2)', 'across-trial variance'};
     j = jet(80);
-    cmap = [colorGradient([1 1 1], j(1,:), 20); j]; 
+    cmap = [colorGradient([1 1 1], j(1,:), 2); j]; 
 %     cmap = [[1 1 1]; cbrewer('seq', 'YlOrRd', 10)];
 %     cmap = cbrewer('seq', 'BuPu', 100);
     for c = 1:4
@@ -255,19 +255,22 @@ if strcmp(focus, 'all') || strcmp(focus, 'fixSpan')
             m = data.session(i).fixPrecision{c}.Prob';
 %             m = imresize(m, [256, 256]);
             m = smooth2a(m, smoothr(c), smoothr(c));
-            m = m./max(m(:));
+%             m = m./max(m(:));
+            m = m./sum(m(:));
 %             m(m < 0.25) = 0;
-%             [~, thre_i] = clear_cbar(m);
-%             lenm = length(m(:));
+            [thre, thre_i] = clear_cbar(m);
+            lenm = length(m(:));
+            m(m < thre) = 0;
+            m = m./max(m(:));
             imagesc(x, y, m)           
 %             cmap = [ones(lenm - thre_i, 3); jet(thre_i)];
             colormap(cmap)
 %             colorbar('southoutside')
             caxis([0 1])
-            ca = caxis
+%             ca = caxis
     %         xlim(max(data.session(i).params.fixwin(1,:))*[-1 1])
     %         ylim(max(data.session(i).params.fixwin(2,:))*[-1 1])
-            axis(0.5*[-1 1 -1 1])
+            axis(0.4*smoothr(c)*[-1 1 -1 1])
             title([num2str(i) ': ' num2str(data.session(i).fixPrecision{c}.accuracy)])
             set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
         end
@@ -760,7 +763,6 @@ while S < 0.75
     S = S + sorted_p(i);
     i = i + 1;
 end
-S
-thre = sorted_p(i)
-thre_i = sorted_i(i)
-
+thre = sorted_p(i);
+thre_i = sorted_i(i);
+disp(['S : ' num2str(S) ', i: ' num2str(thre_i) ', ratio: ' num2str(thre_i/length(m(:)))])

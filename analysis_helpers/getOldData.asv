@@ -52,21 +52,49 @@ for a = 1:length(animals)
     ids(outs) = [];
     eyeveclen(outs) = [];
     reward(outs) = [];
+    c
     d = ids{1};
+    p = params{1};
+    e = eyeveclen(1);
+    r = reward(1);
+    idx = 1;
+    for f = 2:length(params)
+        if strcmp(d, ids{f})
+            idx = [idx, f];
+        else
+            p = params{idx(1)};
+            e = eyeveclen(idx(1));
+            r = reward{idx(1)};
+            if length(idx) > 1
+                for k = idx(2):idx(end)
+                    p = concatenate_params(p, params{k});
+                    e = e + eyeveclen(k);
+                    r = [r, reward{k}];
+                end
+            end
+            data.session(c).date = d;
+            data.session(c).params = p;
+            data.session(c).eyedata.reward = r;
+            data.session(c).eyedata.eyeveclen = e;
+        end
+    end
+    end
     c = 1;
     idx = 1;
     f = 1;
     while f < length(params)
-      
         while strcmp(d, ids{f})
             idx = [idx, f];
             f = f + 1;
         end
-        data.session(c).date = d;
-        p = params{idx(1)};
+        idx = unique(idx);
+        try
+            p = params{idx(1)};
+        catch
+            break
+        end
         e = eyeveclen(idx(1));
         r = reward{idx(1)};
-        d = ids{f};
         if length(idx) > 1
             for k = idx(2):idx(end)
                 p = concatenate_params(p, params{k});
@@ -74,10 +102,13 @@ for a = 1:length(animals)
                 r = [r, reward{k}];
             end
         end
+        data.session(c).date = d;
         data.session(c).params = p;
         data.session(c).eyedata.reward = r;
         data.session(c).eyedata.eyeveclen = e;
-        idx = [];        
+        c = c + 1;
+        idx = idx(end)+1;        
+        d = ids{f};
     end
     
     % autosave
