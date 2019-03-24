@@ -23,10 +23,12 @@ figpath = 'Z:\Katsuhisa\headfree_project\figures\';
 close all;
 lenses = length(data.session);
 out = zeros(1, lenses);
-for i  = 1:lenses
-    if ~isstruct(data.session(i).params) || ~isstruct(data.session(i).psarti)
-        out(i) = 1;
-        disp(['session ' num2str(i) ' is excluded as parameters are not stored'])
+if ~contains(inputname(1), 'old')
+    for i  = 1:lenses
+        if ~isstruct(data.session(i).params) || ~isstruct(data.session(i).psarti)
+            out(i) = 1;
+            disp(['session ' num2str(i) ' is excluded as parameters are not stored'])
+        end
     end
 end
 data.session(out==1) = [];
@@ -84,21 +86,24 @@ if strcmp(focus, 'all') || strcmp(focus, 'behaviors')
 %     paranames = {'working duration (min)', 'proportion of trials with fixation breaks (%)', ...
 %         'median of weibull dist.', 'cumulative hazard rate'};
     paranames = {'working duration (min)', 'proportion of trials with fixation breaks (%)', ...
-        'duration for half area of survival function (sec)'};
+        'area under survival function'};
     params = nan(length(paranames), lenses);
     for i = 1:lenses
         params(1,i) = data.session(i).eyedata.eyeveclen/(500*60);
         params(2,i) = 100*sum(data.session(i).eyedata.reward==0)/...
             length(data.session(i).eyedata.reward);
-        T = linspace(0, max(data.session(i).params.fixdur), 1000);
-        y = exp(-(T/data.session(i).survival.fitparams(1)).^data.session(i).survival.fitparams(2));
-        area = 0;
-        half_t = 1;
-        while area < 0.5*data.session(i).survival.auc
-            area = area + y(half_t)*(T(half_t+1) - T(half_t));
-            half_t = half_t + 1;
+        if isfield(data.session(i), 'survival')
+            params(3, i) = data.session(i).survival.auc;
+%             T = linspace(0, max(data.session(i).params.fixdur), 1000);
+%             y = exp(-(T/data.session(i).survival.fitparams(1)).^data.session(i).survival.fitparams(2));
+%             area = 0;
+%             half_t = 1;
+%             while area < 0.5*data.session(i).survival.auc
+%                 area = area + y(half_t)*(T(half_t+1) - T(half_t));
+%                 half_t = half_t + 1;
+%             end
+%             params(3, i) = T(half_t);
         end
-        params(3, i) = T(half_t);
 %         params(3, i) = data.session(i).survival.auc/max(data.session(i).params.fixdur);
 %         params(3,i) = data.session(i).survival.fitparams(1)*log(2)^(1/data.session(i).survival.fitparams(2));
 %         params(3,i) = (nanmean(data.session(i).params.fixdur/2)/data.session(i).survival.fitparams(1))...
@@ -695,14 +700,18 @@ for i = 1:lenp
     xlim([1 lenses])
     xlabel('session')
     ylabel(paranames{i})
-%     [rr,pp] = corrcoef([1:lenses]', params(i,:)');
-%     [rr, pp] = corr([1:firstn]', params(i,1:firstn)', 'type', 'Spearman');
-%     pr = ranksum(params(i,1:23), params(i,24:end));
-%     [r, p] = corr([1:lenses]', params(i,:)', 'type', 'Spearman');
-%     title({['p(ranksum) = ' num2str(pr)], ...
-%         ['r(spe) = ' num2str(r) ' , p(spe) = ' num2str(p)]})
-%     title({['r(1:' num2str(firstn) ') = ' num2str(rr) ' , p(1:' num2str(firstn) ') = ' num2str(pp)], ...
-%         ['r(spe) = ' num2str(r) ' , p(spe) = ' num2str(p)]})
+    try
+%         [rr,pp] = corrcoef([1:lenses]', params(i,:)');
+%         [rr, pp] = corr([1:firstn]', params(i,1:firstn)', 'type', 'Spearman');
+        pr = ranksum(params(i,1:23), params(i,24:end));
+        [r, p] = corr([1:lenses]', params(i,:)', 'type', 'Spearman');
+        title({['p(ranksum) = ' num2str(pr)], ...
+            ['r(spe) = ' num2str(r) ' , p(spe) = ' num2str(p)]})
+%         title({['r(1:' num2str(firstn) ') = ' num2str(rr) ' , p(1:' num2str(firstn) ') = ' num2str(pp)], ...
+%             ['r(spe) = ' num2str(r) ' , p(spe) = ' num2str(p)]})
+    catch
+        disp('')
+    end
     set(gca, 'box', 'off'); set(gca, 'TickDir', 'out')
 end
 set(gcf, 'Name', figtitle, 'NumberTitle', 'off')

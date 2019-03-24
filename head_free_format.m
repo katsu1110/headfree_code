@@ -95,6 +95,7 @@ end
 % e: example survivor function and 
 %     scale parameters (all)
 if strcmp(fignum, 'all') || fignum==2
+    othercols = [[197 25 125]; [77 146 33]];
     % figure format convention
     [figPars, axPars] = setPlotPars;
     figPos = [5 5 21 20]; % this is in cm
@@ -104,10 +105,10 @@ if strcmp(fignum, 'all') || fignum==2
     % spacing parameters
     xbegin = 1.5;
     ybegin = 5;
-    sq = 1.5;
+    sq = 1.8;
     offset_figlab = [1.8, -0.5];
-    figspace_x = 4;
-    figspace_y = 3;
+    figspace_x = 4.5;
+    figspace_y = 4;
     xrange = [1 46];
     
     % foldername
@@ -120,12 +121,12 @@ if strcmp(fignum, 'all') || fignum==2
     axis off
     
     % b, c
-    labs = {{'fixation duration per trial', 'required to get a reward', '(sec)'}, ...
+    labs = {{'fixation duration per trial', '(sec)'}, ...
         {'area of fixation window', '(deg^2)'}};
     for k = 1:length(labs)
         place = [xbegin+figspace_x*k ybegin+figspace_y gr*sq sq];
         ax_new = axes(axPars, 'position', place);
-        fig = openfig([figpath foldername '\raw_figs\expparams_fix.fig'], 'invisible');
+        fig = openfig([figpath foldername '\raw_figs\expparams_all.fig'], 'invisible');
         % axis object
         axesObjs = get(fig, 'Children');
         copyobj(axesObjs(4-k).Children, ax_new); delete(fig);
@@ -134,7 +135,7 @@ if strcmp(fignum, 'all') || fignum==2
         xlim(xrange)
         yy = get(gca, 'YLim');
         yy(2) = ceil(yy(2));
-        set(gca, 'XTick', xrange, 'YTick', [yy(1) mean(yy) yy(2)])
+        set(gca, 'XTick', [1 10 20 30 40], 'YTick', [yy(1) mean(yy) yy(2)])
         ylim(yy)
         set(gca,'DefaultTextFontSize',fz)
         offset_axis([0.05 0.05], axPars)
@@ -152,7 +153,8 @@ if strcmp(fignum, 'all') || fignum==2
     % axis object
     axesObjs = get(fig, 'Children');
     lena = length(axesObjs);
-    ind = [16 27 36];     
+%     ind = [16 27 36];    
+    ind = [13 40];
     cols = cbrewer('qual', 'Set2', length(ind));
     for l = 1:length(ind)
         % survivor function
@@ -185,7 +187,7 @@ if strcmp(fignum, 'all') || fignum==2
     axis off
     
     % e, f (right)
-    labs = {'fixation break (%)', {'duration for half area', 'of survival function ','(sec)'}, ...
+    labs = {'fixation break (%)', {'area under survival function'}, ...
         'working duration (min)'};
 %     idx = [3, 2, 4];
     idx = [2, 1, 3];
@@ -198,7 +200,7 @@ if strcmp(fignum, 'all') || fignum==2
             place = [xbegin ybegin gr*sq sq];
         end
         ax_new = axes(axPars, 'position', place);
-        fig = openfig([figpath foldername '\raw_figs\ses_behavkaki_free_fix.fig'], 'invisible');
+        fig = openfig([figpath foldername '\raw_figs\ses_behav_all.fig'], 'invisible');
         % axis object
         axesObjs = get(fig, 'Children');
         copyobj(axesObjs(idx(k)).Children, ax_new); delete(fig);
@@ -213,9 +215,9 @@ if strcmp(fignum, 'all') || fignum==2
         xlim(xrange)
         yy = round(get(gca, 'YLim'));
         if k==2
-            yy(2) = 1.2;
+            yy(2) = 1.5;
         end
-        set(gca, 'XTick', xrange, 'YTick', [yy(1) mean(yy) yy(2)])
+        set(gca, 'XTick', [1 10 20 30 40], 'YTick', [yy(1) mean(yy) yy(2)])
         ylim(yy)
         set(gca,'DefaultTextFontSize',fz)
         offset_axis([0.05 0.05], axPars)
