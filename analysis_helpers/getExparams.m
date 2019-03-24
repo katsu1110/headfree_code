@@ -57,8 +57,7 @@ catch % old file?
         dpp = compute_dpp(ex.viewingDistance, ...
             ex.monitorWidth, ex.screenRect(3:4));
     catch
-        dpp = compute_dpp(143, ...
-            59, ex.screenRect(3:4));
+        dpp = 0.0166;
     end
 end
      

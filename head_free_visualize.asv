@@ -91,11 +91,12 @@ if strcmp(focus, 'all') || strcmp(focus, 'behaviors')
     params = nan(length(paranames), lenses);
     for i = 1:lenses
         params(1,i) = data.session(i).eyedata.eyeveclen/(500*60);
-        if ~isnan(data.session(i).eyedata.reward)
+        try
             params(2,i) = 100*sum(data.session(i).eyedata.reward==0)/...
                 length(data.session(i).eyedata.reward);
+        catch
+            disp('')
         end
-
         if isfield(data.session(i), 'survival')
             params(3, i) = data.session(i).survival.auc;
 %             T = linspace(0, max(data.session(i).params.fixdur), 1000);
