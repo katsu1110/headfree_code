@@ -57,7 +57,7 @@ catch % old file?
         dpp = compute_dpp(ex.viewingDistance, ...
             ex.monitorWidth, ex.screenRect(3:4));
     catch
-        dpp = 0.0166;
+        dpp = compute_dpp(101, 61.5, [1920 1080]); % initial mango sessions
     end
 end
      

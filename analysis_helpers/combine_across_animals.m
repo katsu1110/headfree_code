@@ -15,11 +15,11 @@ for t = 1:length(types)
          for p = 1:lena
             x{n}{p} = axesObjs(lena-p+1).Children.XData;
             y{n}{p} = axesObjs(lena-p+1).Children.YData;
-            if contains(names{n}, 'kiwi')
-                x{n}{p} = [x{n}{p}(1:4) nan(1, 11) x{n}{p}(5:end)+11];
-                y{n}{p} = [y{n}{p}(1:4) nan(1, 11) y{n}{p}(5:end)];
-                disp(x{n}{p})
-            end
+%             if contains(names{n}, 'kiwi')
+%                 x{n}{p} = [x{n}{p}(1:4) nan(1, 11) x{n}{p}(5:end)+11];
+%                 y{n}{p} = [y{n}{p}(1:4) nan(1, 11) y{n}{p}(5:end)];
+%                 disp(x{n}{p})
+%             end
          end
          delete(fig);
     end
