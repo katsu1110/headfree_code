@@ -30,6 +30,10 @@ if ~contains(inputname(1), 'old')
             disp(['session ' num2str(i) ' is excluded as parameters are not stored'])
         end
     end
+else
+    if contains(inputname(1), 'kiwi')
+        data.session(end-5:end) = [];
+    end
 end
 data.session(out==1) = [];
 % % remove ses 9, 10 (shorter duration) in discrimination
